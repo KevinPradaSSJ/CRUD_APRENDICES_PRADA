@@ -61,11 +61,14 @@ DROP TABLE IF EXISTS `aprendices_programa`;
 CREATE TABLE `aprendices_programa` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_aprendiz` int NOT NULL,
-  `id_programa_formación` int NOT NULL,
+  `id_programa_formacion` int NOT NULL,
   `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
   `descripcion` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_aprendiz` (`id_aprendiz`),
+  KEY `id_programa_formacion` (`id_programa_formacion`),
+  CONSTRAINT `aprendices_programa_ibfk_1` FOREIGN KEY (`id_aprendiz`) REFERENCES `aprendices` (`id`),
+  CONSTRAINT `aprendices_programa_ibfk_2` FOREIGN KEY (`id_programa_formacion`) REFERENCES `programa_de_formacion` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,7 +92,7 @@ CREATE TABLE `generos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `genero` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,6 +101,7 @@ CREATE TABLE `generos` (
 
 LOCK TABLES `generos` WRITE;
 /*!40000 ALTER TABLE `generos` DISABLE KEYS */;
+INSERT INTO `generos` VALUES (1,'Masculino'),(2,'Femenino'),(3,'Otro');
 /*!40000 ALTER TABLE `generos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,9 +115,8 @@ DROP TABLE IF EXISTS `grupo_sanguineo`;
 CREATE TABLE `grupo_sanguineo` (
   `id` int NOT NULL AUTO_INCREMENT,
   `grupo` varchar(4) NOT NULL,
-  `factor` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +125,7 @@ CREATE TABLE `grupo_sanguineo` (
 
 LOCK TABLES `grupo_sanguineo` WRITE;
 /*!40000 ALTER TABLE `grupo_sanguineo` DISABLE KEYS */;
+INSERT INTO `grupo_sanguineo` VALUES (1,'A+'),(2,'A-'),(3,'B+'),(4,'B-'),(5,'AB+'),(6,'AB-'),(7,'O+'),(8,'O-');
 /*!40000 ALTER TABLE `grupo_sanguineo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +140,7 @@ CREATE TABLE `programa_de_formacion` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre_programa` varchar(35) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,6 +149,7 @@ CREATE TABLE `programa_de_formacion` (
 
 LOCK TABLES `programa_de_formacion` WRITE;
 /*!40000 ALTER TABLE `programa_de_formacion` DISABLE KEYS */;
+INSERT INTO `programa_de_formacion` VALUES (1,'ADSO'),(2,'Gestión Empresarial'),(3,'Peluquería');
 /*!40000 ALTER TABLE `programa_de_formacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +164,7 @@ CREATE TABLE `tipo_documento` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,6 +173,7 @@ CREATE TABLE `tipo_documento` (
 
 LOCK TABLES `tipo_documento` WRITE;
 /*!40000 ALTER TABLE `tipo_documento` DISABLE KEYS */;
+INSERT INTO `tipo_documento` VALUES (1,'Cédula '),(2,'Tarjeta de identidad');
 /*!40000 ALTER TABLE `tipo_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -180,4 +186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-11 11:45:28
+-- Dump completed on 2025-04-12 20:59:07

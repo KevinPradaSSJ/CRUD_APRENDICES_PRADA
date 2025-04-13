@@ -1,74 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SENA || Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Aprendices</title>
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
 </head>
-
 <body>
-    <div class="container">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <h1 class="text-center">Lista de Aprendices</h1>
-                    <div class="text-center mb-3">
-                        <a href="crear.php" class="btn btn-sm btn-primary">Crear Aprendiz</a>
-                    </div>
-
-                    <table class="table table-sm table-hover table-responsive">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">No.</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Edad</th>
-                                <th colspan="3" scope="col">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            include 'conexion.php';
-                            $sql = "SELECT * FROM aprendices";
-                            $resultado = mysqli_query($conexion, $sql);
-                            $contador = 1;
-
-                            while ($row = mysqli_fetch_array($resultado)) {
-                                $id = $row['id'];
-                                $nombre = $row['nombre'];
-                                $fecha_nacimiento = $row['fecha_nacimiento'];
-                                $obj = new DateTime($fecha_nacimiento);
-                                $hoy = new DateTime();
-                                $edad = $hoy->diff($obj)->y; // Calcular la edad
-
-                                echo "<tr class='text-center'>";
-                                echo "<th scope='row'>$contador</th>";
-                                echo "<td>$nombre</td>";
-                                echo "<td>$edad años</td>";
-                                echo "<td>";
-                                echo "<a href='ver.php?id=$id&nombre=$nombre' class='btn btn-info btn-sm'>Ver</a>";
-                                echo "</td>";
-                                echo "<td>";
-                                echo "<a href='editar.php?id=$id' class='btn btn-warning btn-sm'>Editar</a>";
-                                echo "</td>";
-                                echo "<td>";
-                                echo "<a href='delete.php?id=$id' class='btn btn-danger btn-sm'>Eliminar</a>";
-                                echo "</td>";
-                                echo "</tr>";
-                                $contador++;
-                            }
-                            mysqli_close($conexion);
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.php">CRUD Aprendices</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="views/Aprendiz/index.php">Gestionar Aprendices</a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center">Bienvenido al Sistema de Gestión de Aprendices</h1>
+        <p class="text-center">Este sistema permite realizar operaciones CRUD sobre los datos de aprendices.</p>
+        <div class="text-center mt-4">
+            <a href="views/Aprendiz/index.php" class="btn btn-primary btn-lg">Ir a la Gestión de Aprendices</a>
+        </div>
     </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <span>CRUD Aprendices © <?php echo date('Y'); ?> - Desarrollado por KevinPradaSSJ</span>
+        </div>
+    </footer>
 </body>
-
 </html>
