@@ -1,5 +1,4 @@
 <?php
-
 require_once 'c://laragon/www/CRUD_APRENDICES_PRADA/Models/Aprendizmodelo.php';
 
 class AprendizControlador
@@ -17,25 +16,18 @@ class AprendizControlador
     public function index()
     {
         $aprendizModel = new Aprendiz();
-        $aprendices = $aprendizModel->recibirDatos(); // Método que obtiene todos los aprendices
+        $aprendices = $aprendizModel->recibirDatos();
 
-        // Verifica si se obtuvieron datos
         if (empty($aprendices)) {
-            $aprendices = []; // Inicializa como un array vacío si no hay resultados
+            $aprendices = []; 
         }
         return $aprendices;
     }
 
-    public function crear()
-    {
-        include 'c://laragon/www/CRUD_APRENDICES_PRADA/Views/Aprendiz/create.php';
-    }
-
-
     public function store()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['store'])) {
-            // print_r($_POST);
+            print_r($_POST);
             $data = [
                 'primer_nombre' => $_POST['primer_nombre'],
                 'segundo_nombre' => $_POST['segundo_nombre'] ?? '',
@@ -93,18 +85,15 @@ class AprendizControlador
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminar'])) {
             try {
-                // Instanciar el modelo
                 $aprendizModel = new Aprendiz();
-                // Llamar al método eliminar
                 $aprendizModel->eliminar(id_aprendiz: (int) $_POST['id']);
-                // Redirigir después de eliminar
                 header('Location: ../Views/index.php');
             } catch (Exception $e) {
                 echo "Error al eliminar aprendiz: " . $e->getMessage();
             }
         }
     }
-    
+
     public function ver($id_aprendiz)
     {
         $aprendizModel = new Aprendiz();

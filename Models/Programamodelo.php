@@ -1,6 +1,5 @@
 <?php
 require_once 'c://laragon/www/CRUD_APRENDICES_PRADA/Config/conexion.php';
-// require_once "c://laragon/www/CRUD_APRENDICES_PRADA/Models/Aprendizmodelo.php.";
 
 class Programa 
 {
@@ -14,8 +13,7 @@ class Programa
     public function agregarPrograma($data)
     {
         try
-        {
-            //$this->conn->beginTransaction();
+        {          
             $sqlprograma = "INSERT INTO aprendices_programa
                             (id_aprendiz, id_programa_formacion, fecha_inicio)
                             VALUES
