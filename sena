@@ -33,13 +33,14 @@ CREATE TABLE `aprendices` (
   `id_genero` int NOT NULL,
   `id_grupo_sanguineo` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_tipo_doc` (`id_tipo_doc`),
-  KEY `id_genero` (`id_genero`),
-  KEY `id_grupo_sanguineo` (`id_grupo_sanguineo`),
-  CONSTRAINT `aprendices_ibfk_1` FOREIGN KEY (`id_tipo_doc`) REFERENCES `tipo_documento` (`id`),
-  CONSTRAINT `aprendices_ibfk_2` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`),
-  CONSTRAINT `aprendices_ibfk_3` FOREIGN KEY (`id_grupo_sanguineo`) REFERENCES `grupo_sanguineo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `numero_doc` (`numero_doc`),
+  KEY `aprendices_ibfk_1` (`id_tipo_doc`),
+  KEY `aprendices_ibfk_2` (`id_genero`),
+  KEY `aprendices_ibfk_3` (`id_grupo_sanguineo`),
+  CONSTRAINT `aprendices_ibfk_1` FOREIGN KEY (`id_tipo_doc`) REFERENCES `tipo_documento` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `aprendices_ibfk_2` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `aprendices_ibfk_3` FOREIGN KEY (`id_grupo_sanguineo`) REFERENCES `grupo_sanguineo` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +49,7 @@ CREATE TABLE `aprendices` (
 
 LOCK TABLES `aprendices` WRITE;
 /*!40000 ALTER TABLE `aprendices` DISABLE KEYS */;
+INSERT INTO `aprendices` VALUES (57,'Kevin','','Prada','',1,'1120564712',1,7);
 /*!40000 ALTER TABLE `aprendices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,11 +67,11 @@ CREATE TABLE `aprendices_programa` (
   `fecha_inicio` date NOT NULL,
   `descripcion` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_aprendiz` (`id_aprendiz`),
   KEY `id_programa_formacion` (`id_programa_formacion`),
-  CONSTRAINT `aprendices_programa_ibfk_1` FOREIGN KEY (`id_aprendiz`) REFERENCES `aprendices` (`id`),
+  KEY `aprendices_programa_ibfk_1` (`id_aprendiz`),
+  CONSTRAINT `aprendices_programa_ibfk_1` FOREIGN KEY (`id_aprendiz`) REFERENCES `aprendices` (`id`) ON DELETE CASCADE,
   CONSTRAINT `aprendices_programa_ibfk_2` FOREIGN KEY (`id_programa_formacion`) REFERENCES `programa_de_formacion` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,6 +80,7 @@ CREATE TABLE `aprendices_programa` (
 
 LOCK TABLES `aprendices_programa` WRITE;
 /*!40000 ALTER TABLE `aprendices_programa` DISABLE KEYS */;
+INSERT INTO `aprendices_programa` VALUES (47,57,1,'2025-04-13',NULL);
 /*!40000 ALTER TABLE `aprendices_programa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,4 +189,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-13  0:12:51
+-- Dump completed on 2025-04-13 23:00:20
